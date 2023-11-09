@@ -27,8 +27,8 @@ double v2(vector<double> alpha_u, vector<vector<double>> n_hu, vector<double>& k
         
         double sum =0;
         
-        for(int j=0; j<n_hu[0].size(); j++){
-            sum += (n_hu[i][j]);
+        for(int j=0; j<n_hu.size(); j++){
+            sum += (n_hu[j][i]);
         }
 
         k2[i] = alpha_u[i] - sum;
@@ -130,7 +130,7 @@ double v7(vector<double> gamma_v, vector<double> cv, double omega, vector<vector
 
     for(int i=0; i<no_of_aps; i++){
         for(int j=0; j<no_of_mds; j++){
-            k7[i][j] = ((gamma_v[j]/cv[j]) - omega) - (1-duv[i][j])*N2 - dv[j];
+            k7[i][j] = ((gamma_v[j]/cv[j]) + omega) - (1-duv[i][j])*N2 - dv[j];
         }
     }
 
@@ -178,7 +178,7 @@ double v9(vector<vector<double>> b_uv, double kth, double M1, vector<vector<doub
         return val;
 }
 
-double v10(vector<vector<double>> nuv, vector<vector<double>> b_uv, double kth, vector<vector<double>> k10){
+double v10(vector<vector<double>> nuv, vector<vector<double>> b_uv, double kth, vector<vector<double>> &k10){
 
     int no_of_aps = nuv.size();
     int no_of_mds = nuv[0].size();

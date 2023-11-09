@@ -49,7 +49,7 @@ vector<double> Tv;
 vector<double> dv;
 vector<double> alpha_u;
 vector<vector<double>> d_uv;
-
+double d;
 
 // Initialize the environment
 void InitializeEnvironment() {
