@@ -1,91 +1,7 @@
-#include <iostream>
-#include <vector>
-#include <algorithm>
+#include <bits/stdc++.h>
+#include "variables.cpp"
 
 using namespace std;
-
-int no_of_APs = 100;
-int no_of_MDs = 1000;
-
-vector<vector<int>> decision_variable(100, vector<int>(1000));
-int tolerable_delay = 100;
-vector<vector<int>> transimission_delay(100, vector<int>(1000));
-//vector of tolerable delay for all MDs
-
-// AP class           
-class AP {
-public:
-  int id;
-  double power_range;
-  vector<MD> connected_MDs;
-  int switched_on;
-  bool isBroken;
-  
-//   bool markedAp;
-  AP(){
-    id = -1;
-  }
-
-  AP(int id, double power_range) {
-    this->id = id;
-    this->power_range = power_range;
-  }
-
-  void addConnectedMD(MD md) {
-    connected_MDs.push_back(md);
-  }
-
-  void removeConnectedMD(MD md) {
-    connected_MDs.erase(remove(connected_MDs.begin(), connected_MDs.end(), md), connected_MDs.end());
-  }
-
-//   double getLoadDifference(AP other_ap) {
-//     return abs(load - other_ap.load);
-//   }
-};
-
-// MD class
-class MD {
-public:
-  int id;
-  AP current_ap;
-  vector<AP> candidate_aps;
-
-  MD(){
-    id = -1;
-  }
-
-  MD(int id, AP current_ap) {
-    this->id = id;
-    this->current_ap = current_ap;
-  }
-
-  void addCandidateAP(AP ap) {
-    candidate_aps.push_back(ap);
-  }
-
-  void removeCandidateAP(AP ap) {
-    candidate_aps.erase(remove(candidate_aps.begin(), candidate_aps.end(), ap), candidate_aps.end());
-  }
-
-  double getDelayGap() {
-    // Get delay gap between current AP and candidate APs.
-    double min_delay_gap = -1;
-    for (AP candidate_ap : candidate_aps) {
-      double delay_gap = getDelayGap(candidate_ap);
-      if (min_delay_gap == -1 || delay_gap < min_delay_gap) {
-        min_delay_gap = delay_gap;
-      }
-    }
-    return min_delay_gap;
-  }
-
-  private:
-    double getDelayGap(AP ap) {
-      // Calculate delay gap between current AP and candidate AP.
-      return 0;
-    }
-};
 
 int getDelayGap(){
     int largest_delay_gap = INT_MIN;
@@ -206,9 +122,5 @@ void MLTA(MD broken_md, AP broken_AP) {
     }
 
   }
-
-}
-
-int main(){
 
 }

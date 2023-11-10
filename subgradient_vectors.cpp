@@ -1,8 +1,9 @@
 #include <bits/stdc++.h>
+#include "variables.cpp"
 
 using namespace std;
 
-double v1(vector<double> dv, vector<double> Tv, double d, vector<double> &k1)
+double v1(vector<double> &k1)
 {
 
     int no_of_mds = dv.size();
@@ -20,7 +21,7 @@ double v1(vector<double> dv, vector<double> Tv, double d, vector<double> &k1)
     return ans;
 }
 
-double v2(vector<double> alpha_u, vector<vector<double>> n_hu, vector<double>& k2){
+double v2(vector<double>& k2){
     int no_of_aps = alpha_u.size();
 
     for(int i=0; i<no_of_aps; i++){
@@ -43,7 +44,7 @@ double v2(vector<double> alpha_u, vector<vector<double>> n_hu, vector<double>& k
     return val;
 }
 
-double v3(vector<double> alpha_u, vector<double> pu, double pmin, vector<double> &k3){
+double v3(vector<double> &k3){
     int no_of_alphas = alpha_u.size();
 
     for(int i=0; i<no_of_alphas; i++){
@@ -61,7 +62,7 @@ double v3(vector<double> alpha_u, vector<double> pu, double pmin, vector<double>
 
 }
 
-double v4(vector<double> alpha_u, vector<double> pu, double pmax, vector<double> &k4){
+double v4(vector<double> &k4){
     int no_of_alphas = alpha_u.size();
 
     for(int i=0; i<no_of_alphas; i++){
@@ -79,17 +80,17 @@ double v4(vector<double> alpha_u, vector<double> pu, double pmax, vector<double>
 
 }
 
-double v5(vector<vector<double>> duv, vector<vector<double>> nuv, vector<vector<double>> &k5)
+double v5(vector<vector<double>> &k5)
 {
 
-    int ap_size = duv.size();    
-    int md_size = duv[0].size(); 
+    int ap_size = d_uv.size();    
+    int md_size = d_uv[0].size(); 
 
     for(int i = 0; i < ap_size; i++){
 
         for(int j = 0; j < md_size; j++){
 
-            k5[i][j] = duv[i][j] - nuv[i][j];
+            k5[i][j] = d_uv[i][j] - n_uv[i][j];
 
         }
     }
@@ -105,7 +106,7 @@ double v5(vector<vector<double>> duv, vector<vector<double>> nuv, vector<vector<
     return norm;
 }
 
-double v6(vector<double> cv, vector<vector<double>> f_buv, vector<vector<double>> &k6){
+double v6(vector<vector<double>> &k6){
     int no_of_aps = f_buv.size();
     int no_of_mds = cv.size();
 
@@ -124,13 +125,13 @@ double v6(vector<double> cv, vector<vector<double>> f_buv, vector<vector<double>
     }
 }
 
-double v7(vector<double> gamma_v, vector<double> cv, double omega, vector<vector<double>> duv, double N2, vector<double> dv, vector<vector<double>> &k7){
-    int no_of_aps = duv.size();
+double v7(vector<vector<double>> &k7){
+    int no_of_aps = d_uv.size();
     int no_of_mds = gamma_v.size();
 
     for(int i=0; i<no_of_aps; i++){
         for(int j=0; j<no_of_mds; j++){
-            k7[i][j] = ((gamma_v[j]/cv[j]) + omega) - (1-duv[i][j])*N2 - dv[j];
+            k7[i][j] = ((gamma_v[j]/cv[j]) + omega) - (1-d_uv[i][j])*N2 - dv[j];
         }
     }
 
@@ -145,7 +146,7 @@ double v7(vector<double> gamma_v, vector<double> cv, double omega, vector<vector
     return val;
 }
 
-double v8(vector<vector<double>> delta_uv, vector<vector<double>> duv, double N2, vector<double> dv, vector<vector<double>> &k8){
+double v8(vector<vector<double>> &k8){
     int no_of_aps = delta_uv.size();
     int no_of_mds = dv.size();
 
@@ -156,14 +157,14 @@ double v8(vector<vector<double>> delta_uv, vector<vector<double>> duv, double N2
     }
 }
 
-double v9(vector<vector<double>> b_uv, double kth, double M1, vector<vector<double>> nuv, vector<vector<double>> &k9){
+double v9(vector<vector<double>> &k9){
 
         int no_of_aps = b_uv.size();
         int no_of_mds = b_uv[0].size();
 
         for(int i=0; i<no_of_aps; i++){
             for(int j=0; j<no_of_mds; j++){
-                k9[i][j] = ((b_uv[i][j] - kth)/M1) - nuv[i][j];
+                k9[i][j] = ((b_uv[i][j] - kth)/M1) - n_uv[i][j];
             }
         }
 
@@ -178,14 +179,14 @@ double v9(vector<vector<double>> b_uv, double kth, double M1, vector<vector<doub
         return val;
 }
 
-double v10(vector<vector<double>> nuv, vector<vector<double>> b_uv, double kth, vector<vector<double>> &k10){
+double v10(vector<vector<double>> &k10){
 
-    int no_of_aps = nuv.size();
-    int no_of_mds = nuv[0].size();
+    int no_of_aps = n_uv.size();
+    int no_of_mds = n_uv[0].size();
 
     for(int i=0; i<no_of_aps; i++){
         for(int j=0; j<no_of_mds; j++){
-            k10[i][j] = nuv[i][j] - (b_uv[i][j]/kth);
+            k10[i][j] = n_uv[i][j] - (b_uv[i][j]/kth);
         }
     }
 
@@ -201,17 +202,17 @@ double v10(vector<vector<double>> nuv, vector<vector<double>> b_uv, double kth, 
 
 }
 
-double v11(vector<vector<double>> duv, vector<double> au, vector<vector<double>> &k11){
+double v11(vector<vector<double>> &k11){
 
-    int ap_size = au.size();
-    int md_size = duv[0].size();
+    int ap_size = alpha_u.size();
+    int md_size = d_uv[0].size();
     double norm = 0;
 
     for(int i = 0; i < ap_size; i++){
 
         for(int j = 0; j < md_size; j++){
 
-            k11[i][j] = duv[i][j] - au[i];
+            k11[i][j] = d_uv[i][j] - alpha_u[i];
         }
     }
 
@@ -224,19 +225,19 @@ double v11(vector<vector<double>> duv, vector<double> au, vector<vector<double>>
     return norm;
 }
 
-double v12(vector<double> au, vector<vector<double>> duv, vector<double> &k12){
+double v12(vector<double> &k12){
 
-    int ap_size = au.size();
-    int md_size = duv[0].size();
+    int ap_size = alpha_u.size();
+    int md_size = d_uv[0].size();
     double norm = 0;
 
     for(int i = 0; i < ap_size; i++){
 
-        double diff = au[i];
+        double diff = alpha_u[i];
 
         for(int j = 0; j < md_size; j++){
 
-            diff -= duv[i][j];
+            diff -= d_uv[i][j];
         }
 
         k12[i] = diff;
@@ -247,7 +248,7 @@ double v12(vector<double> au, vector<vector<double>> duv, vector<double> &k12){
     return norm;
 }
 
-double v13(vector<vector<double>> b_uv, vector<vector<double>> sinr_uv, vector<vector<double>> &k13){
+double v13(vector<vector<double>> &k13){
     int no_of_aps = b_uv.size();
     int no_of_mds = b_uv[0].size();
 
@@ -264,7 +265,7 @@ double v13(vector<vector<double>> b_uv, vector<vector<double>> sinr_uv, vector<v
     return val;
 }
 
-double v14(vector<vector<double>> n_hu, vector<double> alpha_u, vector<double> &k14){
+double v14(vector<double> &k14){
     double val = 0;
 
     for(int i=0; i<alpha_u.size(); i++){

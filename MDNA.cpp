@@ -1,4 +1,5 @@
 #include <bits/stdc++.h>
+#include "variables.cpp"
 
 using namespace std;
 
@@ -10,75 +11,8 @@ int tolerable_delay = 100;
 vector<vector<int>> transimission_delay(100, vector<int>(1000));
 // vector of tolerable delay for all MDs
 
-// AP class
-class AP
-{
-public:
-  int id;
-  double power_range;
-  vector<MD> connected_MDs;
-  int switched_on;
-  bool isBroken;
 
-  //   bool markedAp;
-  AP()
-  {
-    id = -1;
-  }
 
-  AP(int id, double power_range)
-  {
-    this->id = id;
-    this->power_range = power_range;
-  }
-
-  void addConnectedMD(MD md)
-  {
-    connected_MDs.push_back(md);
-  }
-
-  void removeConnectedMD(MD md)
-  {
-    connected_MDs.erase(remove(connected_MDs.begin(), connected_MDs.end(), md), connected_MDs.end());
-  }
-
-  //   double getLoadDifference(AP other_ap) {
-  //     return abs(load - other_ap.load);
-  //   }
-};
-
-// MD class
-class MD
-{
-public:
-  int id;
-  AP current_ap;
-  bool marked;
-  double traffic_requirement;
-  vector<AP> candidate_aps;
-
-  MD()
-  {
-    id = -1;
-  }
-
-  MD(int id, AP current_ap)
-  {
-    this->id = id;
-    this->current_ap = current_ap;
-    this->marked = false;
-  }
-
-  void addCandidateAP(AP ap)
-  {
-    candidate_aps.push_back(ap);
-  }
-
-  void removeCandidateAP(AP ap)
-  {
-    candidate_aps.erase(remove(candidate_aps.begin(), candidate_aps.end(), ap), candidate_aps.end());
-  }
-};
 
 int getDelayGap()
 {
