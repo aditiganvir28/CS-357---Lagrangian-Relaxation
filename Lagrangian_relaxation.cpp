@@ -3,15 +3,23 @@
 #include "MLTA.cpp"
 #include "MDNA.cpp"
 #include "variables.cpp"
+#include "input.cpp"
+#include "MLTA_input.cpp"
+#include "multiplier_update.cpp"
 
 using namespace std;
 
+//intialize the variables
+int in = inputs();
+
+//Intailize the object variables
+int in_o = input_objects();
 
 
 // Initialize the environment
 void InitializeEnvironment() {
   LB = -1000.0;
-  // UB = MDNA();
+  UB = MDNA(aps[2]);
   scalar = 2.0;
   osc_ctr = 0;
   cvg_ctr = 0;
@@ -25,7 +33,6 @@ double LU() {
                 +subproblem8() +subproblem9() + subproblem10();
   return sum;
 }
-
 
 // The main function
 int main() {
@@ -53,13 +60,28 @@ int main() {
     }
 
     // Get a primal feasible solution
-    // UB = MLTA();
+    UB = MLTA(aps[2]);
 
     // Update the multiplier
-    // update_multiplier(scalar, iteration);
+    mult1();
+    mult2();
+    mult3();
+    mult4();
+    mult5();
+    mult6();
+    mult7();
+    mult8();
+    mult9();
+    mult10();
+    mult11();
+    mult12();
+    mult13();
+    mult14();
 
     // Increase iteration
     iteration++;
+
+    cout<<LB<<" "<<UB<<endl;
   }
 
   // Print the result

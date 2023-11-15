@@ -1,6 +1,6 @@
 #include <bits/stdc++.h>
 #include "subgradient_vectors.cpp"
-#include "Lagrangian_relaxation.cpp"
+#include "variables.cpp"
 
 using namespace std;
 
@@ -8,7 +8,7 @@ double lambda = 2;
 
 void mult1(){
 
-    double norm = v1(dv, Tv, d, k1);
+    double norm = v1(k1);
 
     double step_size = lambda*(Z_Ip - Z_D)/norm;
 
@@ -20,7 +20,7 @@ void mult1(){
 
 void mult2(){
 
-    double norm = v2(alpha_u, n_hu, k2);
+    double norm = v2(k2);
 
     double step_size = lambda*(Z_Ip - Z_D)/norm;
 
@@ -32,7 +32,7 @@ void mult2(){
 
 void mult3(){
 
-    double norm = v3(alpha_u, pu, pmin, k3);
+    double norm = v3(k3);
 
     double step_size = lambda*(Z_Ip - Z_D)/norm;
 
@@ -44,7 +44,7 @@ void mult3(){
 
 void mult4(){
 
-    double norm = v4(alpha_u, pu, pmax, k4);
+    double norm = v4(k4);
 
     double step_size = lambda*(Z_Ip - Z_D)/norm;
 
@@ -55,7 +55,7 @@ void mult4(){
 }
 
 void mult5(){
-    double norm = v5(d_uv, n_uv, k5);
+    double norm = v5(k5);
 
     double step_size = lambda*(Z_Ip - Z_D)/norm;
 
@@ -67,7 +67,7 @@ void mult5(){
 }
 
 void mult6(){
-    double norm = v6(cv, f_buv, k6);
+    double norm = v6(k6);
 
     double step_size = lambda*(Z_Ip - Z_D)/norm;
 
@@ -79,7 +79,7 @@ void mult6(){
 }
 
 void mult7(){
-    double norm = v7(gamma_v, cv, omega, d_uv, N2, dv, k7);
+    double norm = v7(k7);
 
     double step_size = lambda*(Z_Ip - Z_D)/norm;
 
@@ -91,7 +91,7 @@ void mult7(){
 }
 
 void mult8(){
-    double norm = v8(delta_uv, d_uv, N2, dv, k8);
+    double norm = v8(k8);
 
     double step_size = lambda*(Z_Ip - Z_D)/norm;
 
@@ -103,7 +103,7 @@ void mult8(){
 }
 
 void mult9(){
-    double norm = v9(b_uv, kth, M1, n_uv, k9);
+    double norm = v9(k9);
 
     double step_size = lambda*(Z_Ip - Z_D)/norm;
 
@@ -115,7 +115,7 @@ void mult9(){
 }
 
 void mult10(){
-    double norm = v10(n_uv, b_uv, kth, k10);
+    double norm = v10(k10);
 
     double step_size = lambda*(Z_Ip - Z_D)/norm;
 
@@ -127,7 +127,7 @@ void mult10(){
 }
 
 void mult11(){
-    double norm = v11(d_uv, a_u, k11);
+    double norm = v11(k11);
 
     double step_size = lambda*(Z_Ip - Z_D)/norm;
 
@@ -140,7 +140,7 @@ void mult11(){
 
 void mult12(){
 
-    double norm = v12(a_u, d_uv, k12);
+    double norm = v12(k12);
 
     double step_size = lambda*(Z_Ip - Z_D)/norm;
 
@@ -151,7 +151,7 @@ void mult12(){
 }
 
 void mult13(){
-    double norm = v13(b_uv, sinr_uv, k13);
+    double norm = v13(k13);
 
     double step_size = lambda*(Z_Ip - Z_D)/norm;
 
@@ -164,7 +164,7 @@ void mult13(){
 
 void mult14(){
 
-    double norm = v14(n_hu, alpha_u, k14);
+    double norm = v14(k14);
 
     double step_size = lambda*(Z_Ip - Z_D)/norm;
 

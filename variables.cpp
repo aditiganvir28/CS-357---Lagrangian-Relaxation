@@ -49,111 +49,120 @@ vector<vector<double>> k13(no_of_aps, vector<double>(no_of_mds, 0));
 double d;
 double Z_Ip=0;
 double Z_D=0;
-double N2;
-double N1;
-double pmin; //min power range
+double N2=100;
+double N1=100;
+double pmin = 2.4; //min power range
 double kth;
-double M1;
-double pmax; //max power range
-double omega;
+double M1=100;
+double pmax = 5; //max power range
+double omega = 15;
 
 //tolerable delay of mobile device v
-vector<double> Tv;
+vector<double> Tv(no_of_mds,0);
+
 //transmission delay of a mobile device v
-vector<double> dv; 
+vector<double> dv(no_of_mds,0); 
+
 //binary decision variable to determine AP u is switched on or not
-vector<double> alpha_u; 
+vector<double> alpha_u(no_of_aps,0); 
+
 //power range of an AP u
-vector<double> pu; 
+vector<double> pu(no_of_aps,0); 
+
 //traffic requirements of mobile device v
-vector<double> gamma_v; 
+vector<double> gamma_v(no_of_mds,0);
+
 //capacity of mobile b
-vector<double> cv; 
-vector<vector<double>> f_buv; 
-vector<vector<double>> sinr_uv; 
-vector<vector<double>> b_uv; 
+vector<double> cv(no_of_mds,0); 
+
+vector<vector<double>> f_buv(no_of_aps, vector<double>(no_of_mds,0)); 
+vector<vector<double>> sinr_uv(no_of_aps, vector<double>(no_of_mds,0)); 
+vector<vector<double>> b_uv(no_of_aps, vector<double>(no_of_mds,0));
+
 //binary variable determines if channel h is assciated with AP u
-vector<vector<double>> n_hu; 
+vector<vector<double>> n_hu(3, vector<double>(no_of_aps,0)); 
+
 //binary variable determines if Mobile device v is assciated with AP u
 vector<vector<double>> delta_uv;
+
 //transmission delay between and AP u and mobile device v
-vector<vector<double>> d_uv; 
+vector<vector<double>> d_uv(no_of_aps, vector<double>(no_of_mds,0)); 
+
 //bainary variable determines if MD v is in service area of AP u
-vector<vector<double>> n_uv;
+vector<vector<double>> n_uv(no_of_aps, vector<double>(no_of_mds,0));
+
 //distance between AP u and mobile device v
 vector<vector<double>> distance_uv;
-vector<double> channel;
-vector<double> h;
+vector<double> channel {20,40,80} ;
+vector<double> h(no_of_aps,0);
 
-// class AP {
-// public:
-//   int id;
-//   double power_range;
-//   vector<MD> connected_MDs;
-//   int switched_on;
-//   bool isBroken;
-  
-// //   bool markedAp;
-//   AP(){
-//     id = -1;
-//   }
+// AP class
+class AP
+{
+public:
+  int id;
+  double power_range;
+  vector<MD> connected_MDs;
+  int switched_on;
+  bool isBroken;
 
-//   AP(int id, double power_range) {
-//     this->id = id;
-//     this->power_range = power_range;
-//   }
+  //   bool markedAp;
+  AP()
+  {
+    id = -1;
+  }
 
-//   void addConnectedMD(MD md) {
-//     connected_MDs.push_back(md);
-//   }
+  AP(int id, double power_range)
+  {
+    this->id = id;
+    this->power_range = power_range;
+    this->isBroken = false;
+  }
 
-//   void removeConnectedMD(MD md) {
-//     connected_MDs.erase(remove(connected_MDs.begin(), connected_MDs.end(), md), connected_MDs.end());
-//   }
-// };
+  void addConnectedMD(MD md)
+  {
+    connected_MDs.push_back(md);
+  }
 
+  void removeConnectedMD(MD md)
+  {
+    connected_MDs.erase(remove(connected_MDs.begin(), connected_MDs.end(), md), connected_MDs.end());
+  }
+};
 
-// // MD class
-// class MD {
-// public:
-//   int id;
-//   AP current_ap;
-//   bool marked;
-//   double traffic_requirement;
-//   vector<AP> candidate_aps;
+// MD class
+class MD
+{
+public:
+  int id;
+  AP current_ap;
+  bool marked;
+  double traffic_requirement;
+  vector<AP> candidate_aps;
 
-//   MD(){
-//     id = -1;
-//   }
+  MD()
+  {
+    id = -1;
+  }
 
-//   MD(int id, AP current_ap) {
-//     this->id = id;
-//     this->current_ap = current_ap;
-//   }
+  MD(int id, int traffic_requirements)
+  {
+    this->id = id;
+    this->traffic_requirement = traffic_requirements;
+    this->marked = false;
+  }
 
-//   void addCandidateAP(AP ap) {
-//     candidate_aps.push_back(ap);
-//   }
+  void addCandidateAP(AP ap)
+  {
+    candidate_aps.push_back(ap);
+  }
 
-//   void removeCandidateAP(AP ap) {
-//     candidate_aps.erase(remove(candidate_aps.begin(), candidate_aps.end(), ap), candidate_aps.end());
-//   }
+  void removeCandidateAP(AP ap)
+  {
+    candidate_aps.erase(remove(candidate_aps.begin(), candidate_aps.end(), ap), candidate_aps.end());
+  }
+};
 
-//   double getDelayGap() {
-//     // Get delay gap between current AP and candidate APs.
-//     double min_delay_gap = -1;
-//     for (AP candidate_ap : candidate_aps) {
-//       double delay_gap = getDelayGap(candidate_ap);
-//       if (min_delay_gap == -1 || delay_gap < min_delay_gap) {
-//         min_delay_gap = delay_gap;
-//       }
-//     }
-//     return min_delay_gap;
-//   }
-
-//   private:
-//     double getDelayGap(AP ap) {
-//       // Calculate delay gap between current AP and candidate AP.
-//         return 0;
-//     }
-// };
+//object vectors
+vector<MD> mds(43);
+vector<AP> aps(5);

@@ -3,29 +3,18 @@
 
 using namespace std;
 
-int no_of_APs = 100;
-int no_of_MDs = 1000;
-
-vector<vector<int>> decision_variable(100, vector<int>(1000));
-int tolerable_delay = 100;
-vector<vector<int>> transimission_delay(100, vector<int>(1000));
-// vector of tolerable delay for all MDs
-
-
-
-
 int getDelayGap()
 {
   int largest_delay_gap = INT_MIN;
 
-  for (int i = 0; i < 100; i++)
+  for (int i = 0; i < no_of_aps; i++)
   {
-    for (int j = 0; j < 1000; j++)
+    for (int j = 0; j < no_of_mds; j++)
     {
-      if (transimission_delay[i][j] == -1)
+      if (d_uv[i][j] == -1)
         continue;
 
-      int delay_gap = transimission_delay[i][j] - tolerable_delay;
+      int delay_gap = d_uv[i][j] - Tv[j];
 
       if (delay_gap > largest_delay_gap)
         largest_delay_gap = delay_gap;
@@ -63,7 +52,7 @@ double MDNA(AP broken_ap)
       if (u.isBroken)
         continue;
 
-      double delay = transimission_delay[u.id][(*req_md).id] - tolerable_delay;
+      double delay = d_uv[u.id][(*req_md).id] - Tv[(*req_md).id];
 
       if (delay > max_delay)
       {
